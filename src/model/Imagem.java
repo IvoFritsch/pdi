@@ -5,15 +5,17 @@
  */
 package model;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import transformers.Transformer;
 
 /**
  *
@@ -27,29 +29,16 @@ public class Imagem {
     private int mediana = -1;
             
     
-    private BufferedImage original;
-    private BufferedImage escalaCinza;
+    private BufferedImage buffered;
 
     public Imagem(BufferedImage bi) {
-        this.original = bi;
+        this.buffered = bi;
         altura = bi.getHeight();
         largura = bi.getWidth();
-        carregaEscalaCinza();
-    }
-    
-    private void carregaEscalaCinza(){
-        escalaCinza = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
-        Graphics g = escalaCinza.getGraphics();
-        g.drawImage(original, 0, 0, null);
-        g.dispose();
     }
 
-    public BufferedImage getOriginal() {
-        return original;
-    }
-
-    public BufferedImage getEscalaCinza() {
-        return escalaCinza;
+    public BufferedImage getBuffered() {
+        return buffered;
     }
     
     
@@ -83,16 +72,16 @@ public class Imagem {
     public double getMediaCinza(){
         if(mediaCinza >= 0) return mediaCinza;
         NumeroBasico soma = new NumeroBasico();
-        percorrePixelsCinza(p -> soma.n += p);
+        percorrePixelsImagem(p -> soma.n += p.getEscalaCinza());
         mediaCinza = soma.n / (getAltura() * getLargura());
         return mediaCinza;
     }
     
     public int[] vetorImagemCinza(){
-        int[] retorno = new int[escalaCinza.getWidth() * escalaCinza.getHeight()];
+        int[] retorno = new int[buffered.getWidth() * buffered.getHeight()];
         InteiroBasico cont = new InteiroBasico();
-        percorrePixelsCinza(p -> {
-            retorno[cont.n] = p;
+        percorrePixelsImagem(p -> {
+            retorno[cont.n] = p.getEscalaCinza();
             cont.n++;
         });
         return retorno;
@@ -101,8 +90,8 @@ public class Imagem {
     public double getVariancia(){
         if(variancia >= 0) return variancia;
         NumeroBasico soma = new NumeroBasico();
-        percorrePixelsCinza(p -> {
-            soma.n += (p - getMediaCinza())*(p - getMediaCinza());
+        percorrePixelsImagem(p -> {
+            soma.n += (p.getEscalaCinza() - getMediaCinza())*(p.getEscalaCinza() - getMediaCinza());
         });
         variancia = soma.n / (getAltura() * getLargura());
         return variancia;
@@ -121,8 +110,8 @@ public class Imagem {
     
     public int getModa(){
         int[] vetorCores = new int[256];
-        percorrePixelsCinza(p -> {
-            vetorCores[p]++;
+        percorrePixelsImagem(p -> {
+            vetorCores[p.getEscalaCinza()]++;
         });
         int max = -1, corMais = -1;
         for (int c = 0; c < 256; c++) {
@@ -142,13 +131,20 @@ public class Imagem {
         return largura;
     }
     
-    private void percorrePixelsCinza(Consumer<Integer> consumidor){
+    public void percorrePixelsImagem(Consumer<Pixel> consumidor){
         
         for(int a = 0; a < getAltura(); a++)
             for (int l = 0; l < getLargura(); l++){
-                Color color = new Color(escalaCinza.getRGB(l, a));
-                consumidor.accept(color.getBlue());
+                consumidor.accept(new Pixel(buffered.getRGB(l, a),l,a));
             }
     }
-    
+ 
+    public <T extends Transformer> T getTransformer(Class<T> c){
+        try {
+            Constructor<T> constructor = c.getConstructor(Imagem.class);
+            return constructor.newInstance(this);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 }

@@ -8,6 +8,7 @@ package tela;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
+import transformers.EscalaCinzaTransformer;
 
 /**
  *
@@ -16,6 +17,7 @@ import model.Imagem;
 public class Tela extends javax.swing.JFrame {
 
     private Imagem imagemSelecionada = null;
+    private Imagem imgTransformada = null;
     
     /**
      * Creates new form Tela
@@ -37,6 +39,8 @@ public class Tela extends javax.swing.JFrame {
         botaoCarregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         verImgInfo = new javax.swing.JButton();
+        transformada = new javax.swing.JLabel();
+        btnTransformar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +62,13 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
+        btnTransformar.setText("->");
+        btnTransformar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransformarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,12 +76,22 @@ public class Tela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagemEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoCarregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
-                    .addComponent(verImgInfo))
-                .addContainerGap(378, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botaoCarregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imagemEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTransformar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(verImgInfo)
+                                .addGap(0, 130, Short.MAX_VALUE))
+                            .addComponent(transformada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,11 +100,18 @@ public class Tela extends javax.swing.JFrame {
                 .addComponent(botaoCarregar)
                 .addGap(13, 13, 13)
                 .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(transformada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(imagemEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(btnTransformar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagemEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(verImgInfo)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,16 +122,20 @@ public class Tela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCarregarActionPerformed
 
     private void verImgInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verImgInfoActionPerformed
-        if(imagemSelecionada == null) return;
+        if(imgTransformada == null) return;
         JOptionPane.showMessageDialog(this,
-            "Largura x Altura: "+imagemSelecionada.getAltura()+" x "+imagemSelecionada.getLargura()+
-                    "\nMédia de cinza: "+ imagemSelecionada.getMediaCinza()+
-                    "\nVariancia: "+ imagemSelecionada.getVariancia()+
-                    "\nMediana: "+ imagemSelecionada.getMediana()+
-                    "\nModa: "+ imagemSelecionada.getModa(),
+            "Largura x Altura: "+imgTransformada.getAltura()+" x "+imgTransformada.getLargura()+
+                    "\nMédia de cinza: "+ imgTransformada.getMediaCinza()+
+                    "\nVariancia: "+ imgTransformada.getVariancia()+
+                    "\nMediana: "+ imgTransformada.getMediana()+
+                    "\nModa: "+ imgTransformada.getModa(),
             "Informações da imagem",
             JOptionPane.INFORMATION_MESSAGE);        // TODO add your handling code here:
     }//GEN-LAST:event_verImgInfoActionPerformed
+
+    private void btnTransformarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformarActionPerformed
+        setImagemTransformada(imagemSelecionada.getTransformer(EscalaCinzaTransformer.class).transform());
+    }//GEN-LAST:event_btnTransformarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,18 +172,28 @@ public class Tela extends javax.swing.JFrame {
         });
     }
 
-    public void setImagemSelecionada(Imagem imagemSelecionada) {
-        if(imagemSelecionada == null)
+    public void setImagemSelecionada(Imagem i) {
+        if(i == null)
             return;
-        this.imagemSelecionada = imagemSelecionada;
+        this.imagemSelecionada = i;
         imagemEntrada.setIcon(null);
-        imagemEntrada.setIcon(new ImageIcon(imagemSelecionada.getOriginal()));
+        imagemEntrada.setIcon(new ImageIcon(this.imagemSelecionada.getBuffered()));
+    }
+    
+    public void setImagemTransformada(Imagem i) {
+        if(i == null)
+            return;
+        this.imgTransformada = i;
+        transformada.setIcon(null);
+        transformada.setIcon(new ImageIcon(this.imgTransformada.getBuffered()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCarregar;
+    private javax.swing.JButton btnTransformar;
     private javax.swing.JLabel imagemEntrada;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel transformada;
     private javax.swing.JButton verImgInfo;
     // End of variables declaration//GEN-END:variables
 }
