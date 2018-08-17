@@ -49,7 +49,7 @@ public class Imagem {
             fc.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
-                    return f.getName().endsWith(".png");
+                    return f.getName().endsWith(".png") || f.isDirectory();
                 }
 
                 @Override

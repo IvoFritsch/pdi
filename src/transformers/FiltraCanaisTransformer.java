@@ -13,13 +13,20 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class EscalaCinzaTransformer extends Transformer{
+public class FiltraCanaisTransformer extends Transformer{
 
-    public EscalaCinzaTransformer(Imagem i) {
+    private boolean r; 
+    private boolean g; 
+    private boolean b;
+    
+    public FiltraCanaisTransformer(Imagem i) {
         super(i);
     }
     
-    public Imagem transform(){
+    public Imagem transform(boolean r, boolean g, boolean b){
+        this.r = r;
+        this.g = g;
+        this.b = b;
         return new Imagem(this.go());
     }
     
@@ -27,7 +34,7 @@ public class EscalaCinzaTransformer extends Transformer{
     protected BufferedImage go() {
         BufferedImage saida = new BufferedImage(input.getLargura(), input.getAltura(), BufferedImage.TYPE_INT_RGB);
         
-        input.percorrePixelsImagem(p -> saida.setRGB(p.x, p.y, p.getEscalaCinzaRGB()));
+        input.percorrePixelsImagem(p -> saida.setRGB(p.x, p.y, p.getCanaisFiltradosRGB(r, g, b)));
         return saida;
     }
 

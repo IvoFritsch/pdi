@@ -5,10 +5,12 @@
  */
 package tela;
 
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
 import transformers.EscalaCinzaTransformer;
+import transformers.FiltraCanaisTransformer;
 
 /**
  *
@@ -16,7 +18,7 @@ import transformers.EscalaCinzaTransformer;
  */
 public class Tela extends javax.swing.JFrame {
 
-    private Imagem imgSelecionada = null;
+    private Imagem imgEntrada = null;
     private Imagem imgTransformada = null;
     
     /**
@@ -42,12 +44,12 @@ public class Tela extends javax.swing.JFrame {
         btnTrocarImgs = new javax.swing.JButton();
         comboEfeito = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAplicarEfeito = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jButton2 = new javax.swing.JButton();
+        cbCanalBlue = new javax.swing.JCheckBox();
+        cbCanalRed = new javax.swing.JCheckBox();
+        cbCanalGreen = new javax.swing.JCheckBox();
+        btnAplicarCanais = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -85,20 +87,30 @@ public class Tela extends javax.swing.JFrame {
 
         jLabel1.setText("Aplicar efeito:");
 
-        jButton1.setText("Aplicar efeito ->");
+        btnAplicarEfeito.setText("Aplicar efeito ->");
+        btnAplicarEfeito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarEfeitoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Selecionar canais:");
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Azul (B)");
+        cbCanalBlue.setSelected(true);
+        cbCanalBlue.setText("Azul (B)");
 
-        jCheckBox2.setSelected(true);
-        jCheckBox2.setText("Vermelho (R)");
+        cbCanalRed.setSelected(true);
+        cbCanalRed.setText("Vermelho (R)");
 
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("Verde (G)");
+        cbCanalGreen.setSelected(true);
+        cbCanalGreen.setText("Verde (G)");
 
-        jButton2.setText("Aplicar canais ->");
+        btnAplicarCanais.setText("Aplicar canais ->");
+        btnAplicarCanais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarCanaisActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Entrada:");
 
@@ -111,11 +123,25 @@ public class Tela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelImgEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelImgSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(verImgInfo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,31 +153,17 @@ public class Tela extends javax.swing.JFrame {
                                         .addGap(37, 37, 37)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox2)
+                                        .addComponent(cbCanalRed)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox3)
+                                        .addComponent(cbCanalGreen)
                                         .addGap(7, 7, 7)
-                                        .addComponent(jCheckBox1))
+                                        .addComponent(cbCanalBlue))
                                     .addComponent(comboEfeito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 232, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelImgEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(labelImgSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnAplicarEfeito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAplicarCanais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 347, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,14 +175,14 @@ public class Tela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboEfeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(btnAplicarEfeito))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jButton2))
+                    .addComponent(cbCanalBlue)
+                    .addComponent(cbCanalRed)
+                    .addComponent(cbCanalGreen)
+                    .addComponent(btnAplicarCanais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -178,22 +190,23 @@ public class Tela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelImgSaida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelImgEntrada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelImgEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                            .addComponent(labelImgSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(verImgInfo)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(50, 50, 50)
                         .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(verImgInfo))
+                        .addContainerGap(371, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarActionPerformed
-        setImagemSelecionada(Imagem.escolheImagem());
+        setImagemEntrada(Imagem.escolheImagem());
     }//GEN-LAST:event_botaoCarregarActionPerformed
 
     private void verImgInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verImgInfoActionPerformed
@@ -209,14 +222,25 @@ public class Tela extends javax.swing.JFrame {
     }//GEN-LAST:event_verImgInfoActionPerformed
 
     private void btnTrocarImgsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarImgsActionPerformed
-        Imagem aux = imgSelecionada;
-        setImagemSelecionada(imgTransformada);
+        Imagem aux = imgEntrada;
+        setImagemEntrada(imgTransformada);
         setImagemTransformada(aux);
     }//GEN-LAST:event_btnTrocarImgsActionPerformed
 
     private void comboEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEfeitoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboEfeitoActionPerformed
+
+    private void btnAplicarEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarEfeitoActionPerformed
+        if(imgEntrada == null) return;
+        setImagemTransformada(imgEntrada.getTransformer(EscalaCinzaTransformer.class).transform());
+    }//GEN-LAST:event_btnAplicarEfeitoActionPerformed
+
+    private void btnAplicarCanaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarCanaisActionPerformed
+        if(imgEntrada == null) return;
+        setImagemTransformada(imgEntrada.getTransformer(FiltraCanaisTransformer.class).
+                transform(cbCanalRed.isSelected(), cbCanalGreen.isSelected(), cbCanalBlue.isSelected()));
+    }//GEN-LAST:event_btnAplicarCanaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,31 +277,34 @@ public class Tela extends javax.swing.JFrame {
         });
     }
 
-    public void setImagemSelecionada(Imagem i) {
-        if(i == null)
-            return;
-        this.imgSelecionada = i;
+    public void setImagemEntrada(Imagem i) {
+        this.imgEntrada = i;
         labelImgEntrada.setIcon(null);
-        labelImgEntrada.setIcon(new ImageIcon(this.imgSelecionada.getBuffered()));
+        if(i != null)
+            labelImgEntrada.setIcon(new ImageIcon(this.imgEntrada.getBuffered().
+                    getScaledInstance(labelImgEntrada.getWidth(), labelImgEntrada.getHeight(),
+                    Image.SCALE_SMOOTH)));
+        
     }
     
     public void setImagemTransformada(Imagem i) {
-        if(i == null)
-            return;
         this.imgTransformada = i;
         labelImgSaida.setIcon(null);
-        labelImgSaida.setIcon(new ImageIcon(this.imgTransformada.getBuffered()));
+        if(i != null)
+            labelImgSaida.setIcon(new ImageIcon(this.imgTransformada.getBuffered().
+                    getScaledInstance(labelImgSaida.getWidth(), labelImgSaida.getHeight(),
+                    Image.SCALE_SMOOTH)));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCarregar;
+    private javax.swing.JButton btnAplicarCanais;
+    private javax.swing.JButton btnAplicarEfeito;
     private javax.swing.JButton btnTrocarImgs;
+    private javax.swing.JCheckBox cbCanalBlue;
+    private javax.swing.JCheckBox cbCanalGreen;
+    private javax.swing.JCheckBox cbCanalRed;
     private javax.swing.JComboBox<String> comboEfeito;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

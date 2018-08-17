@@ -30,4 +30,12 @@ public class Pixel {
         int cinza = (cor.getBlue() + cor.getGreen() + cor.getRed()) / 3;
         return new Color(cinza, cinza, cinza).getRGB();
     }
+    
+    public int getCanaisFiltradosRGB(boolean r, boolean g, boolean b){
+        return new Color(
+                    r ? cor.getRed() : 0, 
+                    g ? cor.getGreen(): 0, 
+                    b ? cor.getBlue(): 0
+                ).getRGB();
+    }
 }

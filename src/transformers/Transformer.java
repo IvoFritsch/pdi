@@ -20,9 +20,5 @@ public abstract class Transformer {
         this.input = input;
     }
     
-    public Imagem transform(){
-        return new Imagem(this.go());
-    }
-    
     protected abstract BufferedImage go();
 }
