@@ -40,6 +40,7 @@ public class Tela extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         labelImgEntrada = new javax.swing.JLabel();
         verImgInfo = new javax.swing.JButton();
         labelImgSaida = new javax.swing.JLabel();
@@ -57,10 +58,14 @@ public class Tela extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnCarregarImagem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        btnSobre = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ivo Fritsch - PDI");
@@ -126,6 +131,18 @@ public class Tela extends javax.swing.JFrame {
         jMenu1.add(btnCarregarImagem);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Sobre");
+
+        btnSobre.setText("Sobre");
+        btnSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSobreActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSobre);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -255,6 +272,14 @@ public class Tela extends javax.swing.JFrame {
         setImagemEntrada(imagemEscolhida);
     }//GEN-LAST:event_btnCarregarImagemActionPerformed
 
+    private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
+        JOptionPane.showMessageDialog(this,
+            "Trabalho prático\nProcessamento Digital de Imagens\n"
+                    + "Ivo Averbeck Fritsch - 0186779",
+            "Sobre",
+            JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSobreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,6 +338,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JButton btnAplicarCanais;
     private javax.swing.JButton btnAplicarEfeito;
     private javax.swing.JMenuItem btnCarregarImagem;
+    private javax.swing.JMenuItem btnSobre;
     private javax.swing.JButton btnTrocarImgs;
     private javax.swing.JCheckBox cbCanalBlue;
     private javax.swing.JCheckBox cbCanalGreen;
@@ -323,9 +349,11 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel labelImgEntrada;
     private javax.swing.JLabel labelImgSaida;
     private javax.swing.JButton verImgInfo;
