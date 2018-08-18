@@ -64,6 +64,7 @@ public class Tela extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ivo Fritsch - PDI");
+        setLocation(new java.awt.Point(150, 150));
 
         labelImgEntrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
