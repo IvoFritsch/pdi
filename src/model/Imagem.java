@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
@@ -22,8 +20,8 @@ import transformers.Transformer;
  * @author 0186779
  */
 public class Imagem {
-    private int largura;
-    private int altura;
+    private final int largura;
+    private final int altura;
     private double mediaCinza = -1;
     private double variancia = -1;
     private int mediana = -1;
@@ -87,7 +85,7 @@ public class Imagem {
         return retorno;
     }    
             
-    public double getVariancia(){
+    public double getVarianciaCinza(){
         if(variancia >= 0) return variancia;
         NumeroBasico soma = new NumeroBasico();
         percorrePixelsImagem(p -> {
@@ -97,7 +95,7 @@ public class Imagem {
         return variancia;
     }
     
-    public int getMediana(){
+    public int getMedianaCinza(){
         if(mediana >= 0) return mediana;
         int[] vetor = vetorImagemCinza();
         if (vetor.length % 2 == 0) {
@@ -108,7 +106,7 @@ public class Imagem {
         return mediana;
     }
     
-    public int getModa(){
+    public int getModaCinza(){
         int[] vetorCores = new int[256];
         percorrePixelsImagem(p -> {
             vetorCores[p.getEscalaCinza()]++;

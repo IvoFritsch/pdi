@@ -34,8 +34,16 @@ public class Pixel {
     public int getCanaisFiltradosRGB(boolean r, boolean g, boolean b){
         return new Color(
                     r ? cor.getRed() : 0, 
-                    g ? cor.getGreen(): 0, 
-                    b ? cor.getBlue(): 0
+                    g ? cor.getGreen() : 0, 
+                    b ? cor.getBlue() : 0
+                ).getRGB();
+    }
+    
+    public int getCorInvertidaRGB(){
+        return new Color(
+                    Math.abs(255 - cor.getRed()), 
+                    Math.abs(255 - cor.getGreen()), 
+                    Math.abs(255 - cor.getBlue())
                 ).getRGB();
     }
 }

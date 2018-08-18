@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import model.Imagem;
 import transformers.EscalaCinzaTransformer;
 import transformers.FiltraCanaisTransformer;
+import transformers.InverteCoresTransformer;
 
 /**
  *
@@ -37,8 +38,9 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         labelImgEntrada = new javax.swing.JLabel();
-        botaoCarregar = new javax.swing.JButton();
         verImgInfo = new javax.swing.JButton();
         labelImgSaida = new javax.swing.JLabel();
         btnTrocarImgs = new javax.swing.JButton();
@@ -52,19 +54,20 @@ public class Tela extends javax.swing.JFrame {
         btnAplicarCanais = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        btnCarregarImagem = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ivo Fritsch - PDI");
 
         labelImgEntrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        botaoCarregar.setText("Carregar Imagem");
-        botaoCarregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCarregarActionPerformed(evt);
-            }
-        });
-
-        verImgInfo.setText("Ver informações da imagem");
+        verImgInfo.setText("Ver informações da imagem de saída");
         verImgInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verImgInfoActionPerformed(evt);
@@ -78,12 +81,7 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escala de cinza" }));
-        comboEfeito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEfeitoActionPerformed(evt);
-            }
-        });
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem" }));
 
         jLabel1.setText("Aplicar efeito:");
 
@@ -116,14 +114,31 @@ public class Tela extends javax.swing.JFrame {
 
         jLabel4.setText("Saida:");
 
+        jMenu1.setText(" Arquivo");
+
+        btnCarregarImagem.setText("Carregar imagem");
+        btnCarregarImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarImagemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnCarregarImagem);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(verImgInfo))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
@@ -133,45 +148,37 @@ public class Tela extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelImgSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(verImgInfo))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(37, 37, 37)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cbCanalRed)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbCanalGreen)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(cbCanalBlue))
-                                    .addComponent(comboEfeito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(37, 37, 37)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbCanalRed)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnAplicarEfeito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAplicarCanais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(cbCanalGreen)
+                                .addGap(7, 7, 7)
+                                .addComponent(cbCanalBlue))
+                            .addComponent(comboEfeito, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAplicarEfeito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAplicarCanais))
                         .addGap(0, 347, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(botaoCarregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboEfeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -191,32 +198,28 @@ public class Tela extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelImgEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
-                            .addComponent(labelImgSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(verImgInfo)
-                        .addContainerGap())
+                            .addComponent(labelImgEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelImgSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(371, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
+                .addComponent(verImgInfo)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botaoCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarActionPerformed
-        setImagemEntrada(Imagem.escolheImagem());
-    }//GEN-LAST:event_botaoCarregarActionPerformed
 
     private void verImgInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verImgInfoActionPerformed
         if(imgTransformada == null) return;
         JOptionPane.showMessageDialog(this,
             "Largura x Altura: "+imgTransformada.getAltura()+" x "+imgTransformada.getLargura()+
                     "\nMédia de cinza: "+ imgTransformada.getMediaCinza()+
-                    "\nVariancia: "+ imgTransformada.getVariancia()+
-                    "\nMediana: "+ imgTransformada.getMediana()+
-                    "\nModa: "+ imgTransformada.getModa(),
+                    "\nVariancia de cinza: "+ imgTransformada.getVarianciaCinza()+
+                    "\nMediana de cinza: "+ imgTransformada.getMedianaCinza()+
+                    "\nModa de cinza: "+ imgTransformada.getModaCinza(),
             "Informações da imagem",
             JOptionPane.INFORMATION_MESSAGE);        // TODO add your handling code here:
     }//GEN-LAST:event_verImgInfoActionPerformed
@@ -227,13 +230,16 @@ public class Tela extends javax.swing.JFrame {
         setImagemTransformada(aux);
     }//GEN-LAST:event_btnTrocarImgsActionPerformed
 
-    private void comboEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEfeitoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboEfeitoActionPerformed
-
     private void btnAplicarEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarEfeitoActionPerformed
         if(imgEntrada == null) return;
-        setImagemTransformada(imgEntrada.getTransformer(EscalaCinzaTransformer.class).transform());
+        switch(comboEfeito.getSelectedItem().toString().substring(0, 3)){
+            case "ECZ":
+                setImagemTransformada(imgEntrada.getTransformer(EscalaCinzaTransformer.class).transform());
+                break;
+            case "ICR":
+                setImagemTransformada(imgEntrada.getTransformer(InverteCoresTransformer.class).transform());
+                break;
+        }
     }//GEN-LAST:event_btnAplicarEfeitoActionPerformed
 
     private void btnAplicarCanaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarCanaisActionPerformed
@@ -241,6 +247,12 @@ public class Tela extends javax.swing.JFrame {
         setImagemTransformada(imgEntrada.getTransformer(FiltraCanaisTransformer.class).
                 transform(cbCanalRed.isSelected(), cbCanalGreen.isSelected(), cbCanalBlue.isSelected()));
     }//GEN-LAST:event_btnAplicarCanaisActionPerformed
+
+    private void btnCarregarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarImagemActionPerformed
+        Imagem imagemEscolhida = Imagem.escolheImagem(); 
+        if(imagemEscolhida == null) return;
+        setImagemEntrada(imagemEscolhida);
+    }//GEN-LAST:event_btnCarregarImagemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,9 +309,9 @@ public class Tela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCarregar;
     private javax.swing.JButton btnAplicarCanais;
     private javax.swing.JButton btnAplicarEfeito;
+    private javax.swing.JMenuItem btnCarregarImagem;
     private javax.swing.JButton btnTrocarImgs;
     private javax.swing.JCheckBox cbCanalBlue;
     private javax.swing.JCheckBox cbCanalGreen;
@@ -309,6 +321,10 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel labelImgEntrada;
     private javax.swing.JLabel labelImgSaida;
     private javax.swing.JButton verImgInfo;
