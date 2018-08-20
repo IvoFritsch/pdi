@@ -22,6 +22,10 @@ public class Pixel {
         this.y = y;
     }
     
+    public boolean isCinza(){
+        return (cor.getBlue() == cor.getGreen()) && (cor.getBlue() == cor.getRed());
+    }
+    
     public int getEscalaCinza(){
         return (cor.getBlue() + cor.getGreen() + cor.getRed()) / 3;
     }

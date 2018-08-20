@@ -25,6 +25,7 @@ public class Imagem {
     private double mediaCinza = -1;
     private double variancia = -1;
     private int mediana = -1;
+    private Boolean escalaCinza = null;
             
     
     private BufferedImage buffered;
@@ -145,4 +146,17 @@ public class Imagem {
             return null;
         }
     }
+
+    public boolean isEscalaCinza() {
+        if (escalaCinza == null){
+            escalaCinza = true;
+            percorrePixelsImagem(p -> {
+                if(!p.isCinza())
+                    escalaCinza = false;
+            });
+        }
+        return escalaCinza;
+    }
+    
+    
 }
