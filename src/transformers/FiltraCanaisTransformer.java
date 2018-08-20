@@ -5,7 +5,6 @@
  */
 package transformers;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import model.Imagem;
 
@@ -23,10 +22,11 @@ public class FiltraCanaisTransformer extends Transformer{
         super(i);
     }
     
-    public Imagem transform(boolean r, boolean g, boolean b){
-        this.r = r;
-        this.g = g;
-        this.b = b;
+    @Override
+    public Imagem transform(){
+        r = getInputValue("r") != 0;
+        g = getInputValue("g") != 0;
+        b = getInputValue("b") != 0;
         return new Imagem(this.go());
     }
     
@@ -38,6 +38,9 @@ public class FiltraCanaisTransformer extends Transformer{
         return saida;
     }
 
-    
+    @Override
+    public String[] getInputValuesNames() {
+        return null;
+    }
     
 }

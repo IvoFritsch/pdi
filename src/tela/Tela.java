@@ -9,9 +9,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
+import transformers.CropValoresTransformer;
 import transformers.EscalaCinzaTransformer;
 import transformers.FiltraCanaisTransformer;
 import transformers.InverteCoresTransformer;
+import transformers.Transformer;
 
 /**
  *
@@ -27,6 +29,8 @@ public class Tela extends javax.swing.JFrame {
      */
     public Tela() {
         initComponents();
+        escondeCampoValor1();
+        escondeCampoValor2();
     }
 
     /**
@@ -55,6 +59,10 @@ public class Tela extends javax.swing.JFrame {
         btnAplicarCanais = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        campoValor1 = new javax.swing.JSpinner();
+        labelValor1 = new javax.swing.JLabel();
+        campoValor2 = new javax.swing.JSpinner();
+        labelValor2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnCarregarImagem = new javax.swing.JMenuItem();
@@ -87,7 +95,12 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa" }));
+        comboEfeito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEfeitoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Aplicar efeito:");
 
@@ -119,6 +132,10 @@ public class Tela extends javax.swing.JFrame {
         jLabel3.setText("Entrada:");
 
         jLabel4.setText("Saida:");
+
+        labelValor1.setText("Valor 1:");
+
+        labelValor2.setText("Valor 2:");
 
         jMenu1.setText(" Arquivo");
 
@@ -168,7 +185,7 @@ public class Tela extends javax.swing.JFrame {
                             .addComponent(labelImgSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 340, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +207,17 @@ public class Tela extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAplicarEfeito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAplicarCanais))
-                        .addGap(0, 347, Short.MAX_VALUE)))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelValor2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoValor2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -200,18 +227,23 @@ public class Tela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboEfeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btnAplicarEfeito))
+                    .addComponent(btnAplicarEfeito)
+                    .addComponent(campoValor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelValor1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbCanalBlue)
                     .addComponent(cbCanalRed)
                     .addComponent(cbCanalGreen)
-                    .addComponent(btnAplicarCanais))
+                    .addComponent(btnAplicarCanais)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(campoValor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelValor2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,20 +282,43 @@ public class Tela extends javax.swing.JFrame {
 
     private void btnAplicarEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarEfeitoActionPerformed
         if(imgEntrada == null) return;
-        switch(comboEfeito.getSelectedItem().toString().substring(0, 3)){
-            case "ECZ":
-                setImagemTransformada(imgEntrada.getTransformer(EscalaCinzaTransformer.class).transform());
-                break;
-            case "ICR":
-                setImagemTransformada(imgEntrada.getTransformer(InverteCoresTransformer.class).transform());
-                break;
-        }
+        Transformer transformerToUse = getSelectedTransformer();
+        populaTransformerComInputValues(transformerToUse);
+        setImagemTransformada(transformerToUse.transform());
     }//GEN-LAST:event_btnAplicarEfeitoActionPerformed
 
+    private void populaTransformerComInputValues(Transformer transformer){
+        String[] inputValuesNames = transformer.getInputValuesNames();
+        if(inputValuesNames == null) return;
+        if(inputValuesNames.length > 0)
+            transformer.setInputValue(inputValuesNames[0], (Integer)campoValor1.getValue());
+        if(inputValuesNames.length > 1)
+            transformer.setInputValue(inputValuesNames[1], (Integer)campoValor1.getValue());
+    }
+    
+    private Transformer getSelectedTransformer(){
+        if(imgEntrada == null) return null;
+        switch(comboEfeito.getSelectedItem().toString().substring(0, 3)){
+            case "ECZ":
+                return imgEntrada.getTransformer(EscalaCinzaTransformer.class);
+            case "ICR":
+                return imgEntrada.getTransformer(InverteCoresTransformer.class);
+            case "CVL":
+                return imgEntrada.getTransformer(CropValoresTransformer.class);
+            default:
+                return null;
+        }
+        
+    }
+    
+    
     private void btnAplicarCanaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarCanaisActionPerformed
         if(imgEntrada == null) return;
-        setImagemTransformada(imgEntrada.getTransformer(FiltraCanaisTransformer.class).
-                transform(cbCanalRed.isSelected(), cbCanalGreen.isSelected(), cbCanalBlue.isSelected()));
+        FiltraCanaisTransformer transformer = imgEntrada.getTransformer(FiltraCanaisTransformer.class);
+        transformer.setInputValue("r", cbCanalRed.isSelected() ? 1 : 0);
+        transformer.setInputValue("g", cbCanalGreen.isSelected() ? 1 : 0);
+        transformer.setInputValue("b", cbCanalBlue.isSelected() ? 1 : 0);
+        setImagemTransformada(transformer.transform());
     }//GEN-LAST:event_btnAplicarCanaisActionPerformed
 
     private void btnCarregarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarImagemActionPerformed
@@ -279,6 +334,20 @@ public class Tela extends javax.swing.JFrame {
             "Sobre",
             JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSobreActionPerformed
+
+    private void comboEfeitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEfeitoActionPerformed
+        escondeCampoValor1();
+        escondeCampoValor2();
+        
+        Transformer selectedTransformer = getSelectedTransformer();
+        if(selectedTransformer == null) return;
+        String[] inputValuesNames = selectedTransformer.getInputValuesNames();
+        if(inputValuesNames == null) return;
+        if(inputValuesNames.length > 0)
+            exibeCampoValor1(inputValuesNames[0]);
+        if(inputValuesNames.length > 1)
+            exibeCampoValor2(inputValuesNames[1]);
+    }//GEN-LAST:event_comboEfeitoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,12 +403,35 @@ public class Tela extends javax.swing.JFrame {
                     Image.SCALE_SMOOTH)));
     }
 
+    public void exibeCampoValor1(String titulo){
+        labelValor1.setText(titulo.substring(0, 1).toUpperCase() + titulo.substring(1)+":");
+        labelValor1.setVisible(true);
+        campoValor1.setVisible(true);
+    }
+    
+    public void escondeCampoValor1(){
+        labelValor1.setVisible(false);
+        campoValor1.setVisible(false);
+    }
+    public void exibeCampoValor2(String titulo){
+        labelValor2.setText(titulo.substring(0, 1).toUpperCase() + titulo.substring(1)+":");
+        labelValor2.setVisible(true);
+        campoValor2.setVisible(true);
+    }
+    
+    public void escondeCampoValor2(){
+        labelValor2.setVisible(false);
+        campoValor2.setVisible(false);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAplicarCanais;
     private javax.swing.JButton btnAplicarEfeito;
     private javax.swing.JMenuItem btnCarregarImagem;
     private javax.swing.JMenuItem btnSobre;
     private javax.swing.JButton btnTrocarImgs;
+    private javax.swing.JSpinner campoValor1;
+    private javax.swing.JSpinner campoValor2;
     private javax.swing.JCheckBox cbCanalBlue;
     private javax.swing.JCheckBox cbCanalGreen;
     private javax.swing.JCheckBox cbCanalRed;
@@ -356,6 +448,8 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel labelImgEntrada;
     private javax.swing.JLabel labelImgSaida;
+    private javax.swing.JLabel labelValor1;
+    private javax.swing.JLabel labelValor2;
     private javax.swing.JButton verImgInfo;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,6 @@
  */
 package transformers;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import model.Imagem;
 
@@ -19,6 +18,7 @@ public class EscalaCinzaTransformer extends Transformer{
         super(i);
     }
     
+    @Override
     public Imagem transform(){
         return new Imagem(this.go());
     }
@@ -31,6 +31,9 @@ public class EscalaCinzaTransformer extends Transformer{
         return saida;
     }
 
-    
+    @Override
+    public String[] getInputValuesNames() {
+        return null;
+    }
     
 }

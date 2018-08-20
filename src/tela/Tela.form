@@ -100,7 +100,7 @@
                           <Component id="labelImgSaida" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="340" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -131,7 +131,20 @@
                           <Component id="btnAplicarEfeito" max="32767" attributes="0"/>
                           <Component id="btnAplicarCanais" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="347" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="labelValor1" min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoValor1" min="-2" pref="52" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="labelValor2" min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoValor2" min="-2" pref="52" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -146,6 +159,8 @@
                   <Component id="comboEfeito" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAplicarEfeito" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="campoValor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelValor1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -154,11 +169,15 @@
                   <Component id="cbCanalRed" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbCanalGreen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAplicarCanais" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Component id="campoValor2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelValor2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -208,12 +227,16 @@
     <Component class="javax.swing.JComboBox" name="comboEfeito">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="ECZ - Escala de cinza"/>
             <StringItem index="1" value="ICR - Inverte cores da imagem"/>
+            <StringItem index="2" value="CVL - Cropa valores abaixo/acima de uma faixa"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboEfeitoActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -270,6 +293,20 @@
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Saida:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="campoValor1">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelValor1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valor 1:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="campoValor2">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelValor2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valor 2:"/>
       </Properties>
     </Component>
   </SubComponents>
