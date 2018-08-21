@@ -40,7 +40,12 @@ public class FiltraCanaisTransformer extends Transformer{
 
     @Override
     public String[] getInputValuesNames() {
-        return null;
+        
+        return new String[]{
+            "r",
+            "g",
+            "b"
+        };
     }
     
 }

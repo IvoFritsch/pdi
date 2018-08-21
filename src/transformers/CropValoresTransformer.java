@@ -6,6 +6,7 @@
 package transformers;
 
 import java.awt.image.BufferedImage;
+import javax.swing.JOptionPane;
 import model.Imagem;
 
 /**
@@ -27,6 +28,13 @@ public class CropValoresTransformer extends Transformer{
 
     @Override
     public Imagem transform() {
+        if(!input.isEscalaCinza()){
+            JOptionPane.showMessageDialog(null,
+            "Esse efeito só pode ser aplicado em imagens que estejam em escala de cinza",
+            "Alerta",
+            JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
         inferior = getInputValue("inferior");
         superior = getInputValue("superior");
         return new Imagem(this.go());
@@ -35,8 +43,12 @@ public class CropValoresTransformer extends Transformer{
     @Override
     protected BufferedImage go() {
         BufferedImage saida = new BufferedImage(input.getLargura(), input.getAltura(), BufferedImage.TYPE_INT_RGB);
-        
-        input.percorrePixelsImagem(p -> saida.setRGB(p.x, p.y, p.getEscalaCinzaRGB()));
+        input.percorrePixelsImagem(p -> {
+            if(p.getEscalaCinza() < inferior || p.getEscalaCinza() > superior)
+                saida.setRGB(p.x, p.y, 0);
+            else
+                saida.setRGB(p.x, p.y, p.cor.getRGB());
+        });
         return saida;
     }
 
