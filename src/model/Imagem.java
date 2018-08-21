@@ -70,7 +70,7 @@ public class Imagem {
 
     public double getMediaCinza(){
         if(mediaCinza >= 0) return mediaCinza;
-        NumeroBasico soma = new NumeroBasico();
+        DoubleBasico soma = new DoubleBasico();
         percorrePixelsImagem(p -> soma.n += p.getEscalaCinza());
         mediaCinza = soma.n / (getAltura() * getLargura());
         return mediaCinza;
@@ -78,7 +78,7 @@ public class Imagem {
     
     public int[] vetorImagemCinza(){
         int[] retorno = new int[buffered.getWidth() * buffered.getHeight()];
-        InteiroBasico cont = new InteiroBasico();
+        IntegerBasico cont = new IntegerBasico();
         percorrePixelsImagem(p -> {
             retorno[cont.n] = p.getEscalaCinza();
             cont.n++;
@@ -88,7 +88,7 @@ public class Imagem {
             
     public double getVarianciaCinza(){
         if(variancia >= 0) return variancia;
-        NumeroBasico soma = new NumeroBasico();
+        DoubleBasico soma = new DoubleBasico();
         percorrePixelsImagem(p -> {
             soma.n += (p.getEscalaCinza() - getMediaCinza())*(p.getEscalaCinza() - getMediaCinza());
         });

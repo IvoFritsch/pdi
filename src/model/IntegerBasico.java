@@ -9,6 +9,6 @@ package model;
  *
  * @author 0186779
  */
-public class InteiroBasico {
+public class IntegerBasico {
     public int n;
 }

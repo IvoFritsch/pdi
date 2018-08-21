@@ -9,6 +9,6 @@ package model;
  *
  * @author 0186779
  */
-public class NumeroBasico {
+public class DoubleBasico {
     public double n;
 }
