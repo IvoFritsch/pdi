@@ -158,5 +158,21 @@ public class Imagem {
         return escalaCinza;
     }
     
-    
+    public Imagem aplicaMatrizImagem(double[][] matriz){
+        BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        percorrePixelsImagem(p -> {
+            int xPos = p.x + 1;
+            int yPos = p.y + 1;
+            int xFinal = (int)(matriz[0][0] * xPos + matriz[1][0] * yPos + matriz[2][0] * 1);
+            int yFinal = (int)(matriz[0][1] * xPos + matriz[1][1] * yPos + matriz[2][1] * 1);
+            xFinal--;
+            yFinal--;
+            if(xFinal < 0 || yFinal < 0 ||
+               xFinal >= buffered.getWidth() || yFinal >= buffered.getHeight())
+                return;
+            saida.setRGB(xFinal, yFinal, p.cor.getRGB());
+        });
+        return new Imagem(saida);
+    }
 }

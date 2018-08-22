@@ -9,10 +9,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
+import transformers.BinarizaImagemTransformer;
 import transformers.CropValoresTransformer;
 import transformers.EscalaCinzaTransformer;
 import transformers.FiltraCanaisTransformer;
 import transformers.InverteCoresTransformer;
+import transformers.ReescalaImagemTransformer;
+import transformers.RotacionaImagemTransformer;
+import transformers.TransladaImagemTransformer;
 import transformers.Transformer;
 
 /**
@@ -106,7 +110,7 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "FCA - Filtra Canais" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -370,8 +374,14 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(InverteCoresTransformer.class);
             case "CVL":
                 return imgEntrada.getTransformer(CropValoresTransformer.class);
-            case "FCA":
-                return imgEntrada.getTransformer(FiltraCanaisTransformer.class);
+            case "BIN":
+                return imgEntrada.getTransformer(BinarizaImagemTransformer.class);
+            case "TRL":
+                return imgEntrada.getTransformer(TransladaImagemTransformer.class);
+            case "ARI":
+                return imgEntrada.getTransformer(ReescalaImagemTransformer.class);
+            case "ROT":
+                return imgEntrada.getTransformer(RotacionaImagemTransformer.class);
             default:
                 return null;
         }
