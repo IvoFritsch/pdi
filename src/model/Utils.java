@@ -20,8 +20,8 @@ public class Utils {
         Imagem imagem = new Imagem(inp);
         imagem.percorrePixelsImagem(p -> {
             
-            int xFinal = (int)(matriz[0][0] * p.x + matriz[0][1] * p.x);
-            int yFinal = (int)(matriz[1][0] * p.y + matriz[1][1] * p.y);
+            int xFinal = (int)(matriz[0][0] * (p.x - inp.getWidth() / 2) + matriz[0][1] * (p.x - inp.getWidth() / 2));
+            int yFinal = (int)(matriz[1][0] * (p.y - inp.getHeight()/ 2) + matriz[1][1] * (p.y - inp.getHeight()/ 2));
             saida.setRGB(xFinal, yFinal, p.cor.getRGB());
         });
         return saida;

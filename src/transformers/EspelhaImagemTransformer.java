@@ -12,32 +12,33 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class RotacionaImagemTransformer extends Transformer{
+public class EspelhaImagemTransformer extends Transformer{
 
-    public RotacionaImagemTransformer(Imagem i) {
+    public EspelhaImagemTransformer(Imagem i) {
         super(i);
     }
     
     @Override
     public Imagem transform(){
-        int angulo = getInputValue("angulo");
-        double radianos = Math.toRadians(Math.abs(360 - angulo));
+        int inverteVertical = getInputValue("vertical") > 0 ? -1 : 1;
+        int inverteHorizontal = getInputValue("horizontal") > 0 ? -1 : 1;
+        
         return input.aplicaMatrizImagem(
-                new double[][]{
-                    {Math.cos(radianos),  0 - Math.sin(radianos), 0}, 
-                    {Math.sin(radianos),  Math.cos(radianos)    , 0}, 
-                    {                 0,                       0, 1}});
+        new double[][]{
+                    {inverteHorizontal,  0, 0}, 
+                     {0,  inverteVertical, 0}, 
+                     {0,  0, 1}}
+        );
     }
     
     @Override
     protected BufferedImage go() {
         return null;
     }
-    
+
     @Override
     public String[] getInputValuesNames() {
-        return new String[]{"angulo"};
-        
+        return new String[]{"vertical", "horizontal"};
     }
     
 }

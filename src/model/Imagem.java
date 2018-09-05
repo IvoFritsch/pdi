@@ -162,12 +162,14 @@ public class Imagem {
         BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         percorrePixelsImagem(p -> {
-            int xPos = p.x + 1;
-            int yPos = p.y + 1;
+            int xPos = p.x + 1 - getLargura() / 2;
+            int yPos = p.y + 1 - getAltura()/ 2;
             int xFinal = (int)(matriz[0][0] * xPos + matriz[1][0] * yPos + matriz[2][0] * 1);
             int yFinal = (int)(matriz[0][1] * xPos + matriz[1][1] * yPos + matriz[2][1] * 1);
             xFinal--;
             yFinal--;
+            xFinal += getLargura() / 2;
+            yFinal += getAltura() / 2;
             if(xFinal < 0 || yFinal < 0 ||
                xFinal >= buffered.getWidth() || yFinal >= buffered.getHeight())
                 return;
