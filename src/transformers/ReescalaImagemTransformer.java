@@ -37,7 +37,6 @@ public class ReescalaImagemTransformer extends Transformer{
     @Override
     public String[] getInputValuesNames() {
         return new String[]{"x(%)", "y(%)"};
-        
     }
     
 }

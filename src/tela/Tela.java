@@ -88,7 +88,7 @@ public class Tela extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ivo Fritsch - PDI");
+        setTitle("Ivo Fritsch & Lucas Land - PDI");
         setLocation(new java.awt.Point(150, 150));
 
         labelImgEntrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -410,7 +410,8 @@ public class Tela extends javax.swing.JFrame {
     private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
         JOptionPane.showMessageDialog(this,
             "Trabalho prático\nProcessamento Digital de Imagens\n"
-                    + "Ivo Averbeck Fritsch - 0186779",
+                    + "Ivo Averbeck Fritsch - 0186779\n"
+                + "Lucas Land - 0106360",
             "Sobre",
             JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSobreActionPerformed

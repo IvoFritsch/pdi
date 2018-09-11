@@ -1,0 +1,41 @@
+---------------------------------------------------------
+DESAFIO FUNERÁRIA PESADELO ETERNO
+
+Missão 1:
+- Selecionar efeito ARI
+- Colocar eixo X com valor 200
+- Colocar eixo Y com valor 100
+- Aplicar efeito
+
+Missão 2:
+- Selecionar efeito ARI
+- Colocar eixo X com valor 100
+- Colocar eixo Y com valor 50
+- Aplicar efeito
+
+Missão 3:
+- Selecionar efeito TRL
+- Colocar eixo X com valor 230
+- Colocar eixo Y com valor -100
+- Aplicar efeito
+
+Missão 4:
+- Selecionar efeito ROT
+- Colocar Angulo 90
+- Aplicar efeito
+
+Missão 5:
+- Selecionar efeito ESP
+- Colocar Vertical com valor 0
+- Colocar Horizontal com valor 1
+- Aplicar efeito
+
+Missão 6:
+- Selecionar efeito TRL
+- Colocar eixo X com valor -40
+- Colocar eixo Y com valor -80
+- Pressionar botão de trocar imagens("<- ->")
+- Selecionar efeito ROT
+- Colocar Angulo 30
+- Aplicar efeito
+---------------------------------------------------------
