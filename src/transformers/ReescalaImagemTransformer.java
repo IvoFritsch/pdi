@@ -20,8 +20,8 @@ public class ReescalaImagemTransformer extends Transformer{
     
     @Override
     public Imagem transform(){
-        int x = getInputValue("x");
-        int y = getInputValue("y");
+        double x = getInputValue("x(%)") / 100.0;
+        double y = getInputValue("y(%)") / 100.0;
         return input.aplicaMatrizImagem(
                 new double[][]{
                     {x,  0, 0}, 
@@ -36,7 +36,7 @@ public class ReescalaImagemTransformer extends Transformer{
     
     @Override
     public String[] getInputValuesNames() {
-        return new String[]{"x", "y"};
+        return new String[]{"x(%)", "y(%)"};
         
     }
     
