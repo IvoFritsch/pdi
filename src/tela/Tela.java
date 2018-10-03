@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
 import transformers.BinarizaImagemTransformer;
+import transformers.BrilhoContrasteTransformer;
 import transformers.CropValoresTransformer;
 import transformers.EscalaCinzaTransformer;
 import transformers.EspelhaImagemTransformer;
@@ -111,7 +112,8 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem" }));
+        comboEfeito.setMaximumRowCount(15);
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem", "BRC - Altera o brilho e contraste" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -385,6 +387,8 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(RotacionaImagemTransformer.class);
             case "ESP":
                 return imgEntrada.getTransformer(EspelhaImagemTransformer.class);
+            case "BRC":
+                return imgEntrada.getTransformer(BrilhoContrasteTransformer.class);
             default:
                 return null;
         }
