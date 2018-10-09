@@ -10,12 +10,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
 import transformers.BinarizaImagemTransformer;
+import transformers.BordaSobelTransformer;
 import transformers.BrilhoContrasteTransformer;
 import transformers.CropValoresTransformer;
 import transformers.EscalaCinzaTransformer;
 import transformers.EspelhaImagemTransformer;
 import transformers.FiltraCanaisTransformer;
 import transformers.InverteCoresTransformer;
+import transformers.MediaTransformer;
 import transformers.ReescalaImagemTransformer;
 import transformers.RotacionaImagemTransformer;
 import transformers.TransladaImagemTransformer;
@@ -113,7 +115,7 @@ public class Tela extends javax.swing.JFrame {
         });
 
         comboEfeito.setMaximumRowCount(15);
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem", "BRC - Altera o brilho e contraste" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem", "BRC - Altera o brilho e contraste", "MED - Aplica média na imagem", "ROB - Detector de borda Roberts" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -389,6 +391,10 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(EspelhaImagemTransformer.class);
             case "BRC":
                 return imgEntrada.getTransformer(BrilhoContrasteTransformer.class);
+            case "MED":
+                return imgEntrada.getTransformer(MediaTransformer.class);
+            case "ROB":
+                return imgEntrada.getTransformer(BordaSobelTransformer.class);
             default:
                 return null;
         }

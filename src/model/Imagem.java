@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -176,5 +177,35 @@ public class Imagem {
             saida.setRGB(xFinal, yFinal, p.cor.getRGB());
         });
         return new Imagem(saida);
+    }
+    
+    public Imagem aplicaMatrizConvolucao(double[][] kernel){
+        BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        int xInicial = kernel.length / 2;
+        int xFinal = buffered.getWidth() - xInicial - 1;
+        int yInicial = kernel.length / 2;
+        int yFinal = buffered.getHeight()- yInicial - 1;
+        
+        percorrePixelsImagem(p -> {
+            if (p.x < xInicial || p.x > xFinal) return;
+            if (p.y < yInicial || p.y > yFinal) return;
+            double soma = 0;
+            for (int x = 0; x < kernel.length; x++) {
+                for (int y = 0; y < kernel.length; y++) {
+                    soma += getPixel(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ))
+                            .getEscalaCinza() * kernel[x][y];
+                }
+            }
+            int resultado = (int)(soma / (kernel.length * kernel.length));
+            resultado = Math.abs(resultado);
+            saida.setRGB(p.x, p.y, new Color(resultado, resultado, resultado).getRGB());
+            
+        });
+        return new Imagem(saida);
+    }
+    
+    public Pixel getPixel(int x, int y){
+        return new Pixel(buffered.getRGB(x, y), x, y);
     }
 }
