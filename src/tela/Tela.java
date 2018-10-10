@@ -115,7 +115,7 @@ public class Tela extends javax.swing.JFrame {
         });
 
         comboEfeito.setMaximumRowCount(15);
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem", "BRC - Altera o brilho e contraste", "MED - Aplica média na imagem", "ROB - Detector de borda Roberts" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECZ - Escala de cinza", "ICR - Inverte cores da imagem", "CVL - Cropa valores abaixo/acima de uma faixa", "BIN - Binariza a imagem", "TRL - Translada/Move a imagem", "ARI - Amplia/Reduz imagem", "ROT - Rotaciona imagem", "ESP - Espelha a imagem", "BRC - Altera o brilho e contraste", "MED - Aplica média na imagem", "ROB - Detector de borda Sobel" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);

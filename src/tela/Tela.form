@@ -230,7 +230,7 @@
             <StringItem index="7" value="ESP - Espelha a imagem"/>
             <StringItem index="8" value="BRC - Altera o brilho e contraste"/>
             <StringItem index="9" value="MED - Aplica m&#xe9;dia na imagem"/>
-            <StringItem index="10" value="ROB - Detector de borda Roberts"/>
+            <StringItem index="10" value="ROB - Detector de borda Sobel"/>
           </StringArray>
         </Property>
       </Properties>

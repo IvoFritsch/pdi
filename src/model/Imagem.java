@@ -179,7 +179,7 @@ public class Imagem {
         return new Imagem(saida);
     }
     
-    public Imagem aplicaMatrizConvolucao(double[][] kernel){
+    public Imagem aplicaMatrizConvolucao(double[][] kernel, boolean suavizar){
         BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         int xInicial = kernel.length / 2;
@@ -197,8 +197,10 @@ public class Imagem {
                             .getEscalaCinza() * kernel[x][y];
                 }
             }
-            int resultado = (int)(soma / (kernel.length * kernel.length));
+            int resultado = (int)(soma);
             resultado = Math.abs(resultado);
+            if(suavizar) resultado /= kernel.length * kernel.length;
+            if(resultado > 255) resultado = 255;
             saida.setRGB(p.x, p.y, new Color(resultado, resultado, resultado).getRGB());
             
         });

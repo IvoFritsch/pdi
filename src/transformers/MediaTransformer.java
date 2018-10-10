@@ -24,7 +24,7 @@ public class MediaTransformer extends Transformer{
         new double[][]{
                     {1, 1, 1}, 
                     {1, 1, 1}, 
-                    {1, 1, 1}}
+                    {1, 1, 1}}, true
         );
     }
     
