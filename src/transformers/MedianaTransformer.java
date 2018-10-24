@@ -5,6 +5,7 @@
  */
 package transformers;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import model.Imagem;
 
@@ -12,20 +13,19 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class MediaTransformer extends Transformer{
+public class MedianaTransformer extends Transformer{
 
-    public MediaTransformer(Imagem i) {
+    public MedianaTransformer(Imagem i) {
         super(i);
     }
     
     @Override
     public Imagem transform(){
-        return input.aplicaMatrizConvolucao(
-        new double[][]{
-                    {1, 1, 1}, 
-                    {1, 1, 1}, 
-                    {1, 1, 1}}, 9
-        );
+        
+        Imagem img = input.aplicaFiltroMediana();
+        
+        return img;
+        
     }
     
     @Override

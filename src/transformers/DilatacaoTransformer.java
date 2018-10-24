@@ -5,6 +5,7 @@
  */
 package transformers;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import model.Imagem;
 
@@ -12,20 +13,24 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class MediaTransformer extends Transformer{
+public class DilatacaoTransformer extends Transformer{
 
-    public MediaTransformer(Imagem i) {
+    public DilatacaoTransformer(Imagem i) {
         super(i);
     }
     
     @Override
     public Imagem transform(){
-        return input.aplicaMatrizConvolucao(
-        new double[][]{
-                    {1, 1, 1}, 
-                    {1, 1, 1}, 
-                    {1, 1, 1}}, 9
-        );
+        
+        Imagem img = input.aplicaMatrizConvolucao(
+            new double[][]{
+            {-1,  10, -1},
+            {10, 10, 10},
+            {-1,  10, -1}}, 0
+            );
+        
+        return img;
+        
     }
     
     @Override

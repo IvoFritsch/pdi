@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -179,7 +182,40 @@ public class Imagem {
         return new Imagem(saida);
     }
     
-    public Imagem aplicaMatrizConvolucao(double[][] kernel, boolean suavizar){
+    public Imagem aplicaMatrizMorfologia(int[][] kernel){
+        BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        int xInicial = kernel.length / 2;
+        int xFinal = buffered.getWidth() - xInicial - 1;
+        int yInicial = kernel.length / 2;
+        int yFinal = buffered.getHeight()- yInicial - 1;
+        
+        percorrePixelsImagem(p -> {
+            if (p.x < xInicial || p.x > xFinal) return;
+            if (p.y < yInicial || p.y > yFinal) return;
+            int maior = 0;
+            int soma;
+            for (int x = 0; x < kernel.length; x++) {
+                for (int y = 0; y < kernel.length; y++) {
+                    if(kernel[x][y] < 0) continue;
+                    soma = getPixel(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ))
+                            .getEscalaCinza() + kernel[x][y];
+                    if(soma > maior) maior = soma;
+                }
+            }
+            if(maior > 255) maior = 255;
+            for (int x = 0; x < kernel.length; x++) {
+                for (int y = 0; y < kernel.length; y++) {
+                    if(kernel[x][y] < 0) continue;
+                    saida.setRGB(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ), 
+                            new Color(maior, maior, maior).getRGB());
+                }
+            }
+        });
+        return new Imagem(saida);
+    }
+    
+    public Imagem aplicaMatrizConvolucao(double[][] kernel, int suavizar){
         BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         int xInicial = kernel.length / 2;
@@ -199,10 +235,33 @@ public class Imagem {
             }
             int resultado = (int)(soma);
             resultado = Math.abs(resultado);
-            if(suavizar) resultado /= kernel.length * kernel.length;
+            if(suavizar > 1) resultado /= suavizar;
             if(resultado > 255) resultado = 255;
             saida.setRGB(p.x, p.y, new Color(resultado, resultado, resultado).getRGB());
             
+        });
+        return new Imagem(saida);
+    }
+    
+    public Imagem aplicaFiltroMediana(){
+        BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+        int xInicial = 1;
+        int xFinal = buffered.getWidth() - 2;
+        int yInicial = 1;
+        int yFinal = buffered.getHeight()- 2;
+        percorrePixelsImagem(p -> {
+            if (p.x < xInicial || p.x > xFinal) return;
+            if (p.y < yInicial || p.y > yFinal) return;
+            List<Integer> valores = new ArrayList<>();
+            for (int x = 0; x < 3; x++) {
+                for (int y = 0; y < 3; y++) {
+                    valores.add(getPixel(p.x + ( x - 1 ), p.y + ( y - 1 )).getEscalaCinza());
+                }
+            }
+            Collections.sort(valores);
+            int resultado = valores.get(4);
+            saida.setRGB(p.x, p.y, new Color(resultado, resultado, resultado).getRGB());
         });
         return new Imagem(saida);
     }

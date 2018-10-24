@@ -219,18 +219,21 @@
       <Properties>
         <Property name="maximumRowCount" type="int" value="15"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="11">
-            <StringItem index="0" value="ECZ - Escala de cinza"/>
-            <StringItem index="1" value="ICR - Inverte cores da imagem"/>
-            <StringItem index="2" value="CVL - Cropa valores abaixo/acima de uma faixa"/>
-            <StringItem index="3" value="BIN - Binariza a imagem"/>
-            <StringItem index="4" value="TRL - Translada/Move a imagem"/>
-            <StringItem index="5" value="ARI - Amplia/Reduz imagem"/>
-            <StringItem index="6" value="ROT - Rotaciona imagem"/>
-            <StringItem index="7" value="ESP - Espelha a imagem"/>
-            <StringItem index="8" value="BRC - Altera o brilho e contraste"/>
+          <StringArray count="14">
+            <StringItem index="0" value="ARI - Amplia/Reduz imagem"/>
+            <StringItem index="1" value="BIN - Binariza a imagem"/>
+            <StringItem index="2" value="BRC - Altera o brilho e contraste"/>
+            <StringItem index="3" value="CVL - Cropa valores abaixo/acima de uma faixa"/>
+            <StringItem index="4" value="DIL - Dilata a imagem"/>
+            <StringItem index="5" value="ECZ - Escala de cinza"/>
+            <StringItem index="6" value="ESP - Espelha a imagem"/>
+            <StringItem index="7" value="GAU - Aplica Filtro Gaussiano"/>
+            <StringItem index="8" value="ICR - Inverte cores da imagem"/>
             <StringItem index="9" value="MED - Aplica m&#xe9;dia na imagem"/>
-            <StringItem index="10" value="ROB - Detector de borda Sobel"/>
+            <StringItem index="10" value="MID - Aplica mediana na imagem"/>
+            <StringItem index="11" value="ROT - Rotaciona imagem"/>
+            <StringItem index="12" value="SOB - Detector de borda Sobel"/>
+            <StringItem index="13" value="TRL - Translada/Move a imagem"/>
           </StringArray>
         </Property>
       </Properties>

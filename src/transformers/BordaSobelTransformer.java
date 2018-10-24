@@ -26,13 +26,13 @@ public class BordaSobelTransformer extends Transformer{
             new double[][]{
             {1,  0, -1},
             {2, 0, -2},
-            {1,  0, -1}}, false
+            {1,  0, -1}}, 0
             );
         Imagem img2 = input.aplicaMatrizConvolucao(
             new double[][]{
             {1,  2, 1},
             {0,  0, 0},
-            {-1,  -2, -1}}, false
+            {-1,  -2, -1}}, 0
             );
         BufferedImage saida = new BufferedImage(img1.getLargura(), img1.getAltura(), BufferedImage.TYPE_INT_RGB);
         img1.percorrePixelsImagem(p -> {

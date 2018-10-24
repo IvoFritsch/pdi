@@ -1,4 +1,4 @@
----------------------------------------------------------
+﻿---------------------------------------------------------
 DESAFIO FUNERÁRIA PESADELO ETERNO
 
 Missão 1:
@@ -34,8 +34,47 @@ Missão 6:
 - Selecionar efeito TRL
 - Colocar eixo X com valor -40
 - Colocar eixo Y com valor -80
+- Aplicar efeito
 - Pressionar botão de trocar imagens("<- ->")
 - Selecionar efeito ROT
 - Colocar Angulo 30
+- Aplicar efeito
+---------------------------------------------------------
+DESAFIO DO ESTÚDIO FOTOGRÁFICO
+
+Missão 1:
+- Selecionar efeito BRC
+- Colocar brilho com valor 50
+- Colocar contraste(%) com valor 125
+- Aplicar efeito
+
+Missão 2:
+- Selecionar efeito GAU
+- Aplicar efeito
+
+Missão 3:
+- Selecionar efeito BRC
+- Colocar brilho com valor 40
+- Colocar contraste(%) com valor 140
+- Aplicar efeito
+- Pressionar botão de trocar imagens("<- ->")
+- Selecionar efeito MID
+- Aplicar efeito
+
+Missão 4:
+- Selecionar efeito SOB
+- Aplicar efeito
+
+Missão 5:
+- Selecionar efeito BIN
+- Colocar Threshold com valor 150
+- Aplicar efeito
+
+Missão 6:
+- Selecionar efeito MED
+- Aplicar efeito
+- Pressionar botão de trocar imagens("<- ->")
+- Selecionar efeito BIN
+- Colocar Threshold com valor 60
 - Aplicar efeito
 ---------------------------------------------------------

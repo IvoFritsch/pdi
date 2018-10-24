@@ -27,13 +27,6 @@ public class BinarizaImagemTransformer extends Transformer{
 
     @Override
     public Imagem transform() {
-        if(!input.isEscalaCinza()){
-            JOptionPane.showMessageDialog(null,
-            "Esse efeito só pode ser aplicado em imagens que estejam em escala de cinza",
-            "Alerta",
-            JOptionPane.WARNING_MESSAGE);
-            return null;
-        }
         threshold = getInputValue("threshold");
         return new Imagem(this.go());
     }

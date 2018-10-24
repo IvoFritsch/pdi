@@ -12,20 +12,23 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class MediaTransformer extends Transformer{
+public class GaussianoTransformer extends Transformer{
 
-    public MediaTransformer(Imagem i) {
+    public GaussianoTransformer(Imagem i) {
         super(i);
     }
     
     @Override
     public Imagem transform(){
-        return input.aplicaMatrizConvolucao(
-        new double[][]{
-                    {1, 1, 1}, 
-                    {1, 1, 1}, 
-                    {1, 1, 1}}, 9
-        );
+        
+        Imagem img = input.aplicaMatrizConvolucao(
+            new double[][]{
+                        {1, 2, 1}, 
+                        {2, 4, 2}, 
+                        {1, 2, 1}}, 16);
+        
+        return img;
+        
     }
     
     @Override
