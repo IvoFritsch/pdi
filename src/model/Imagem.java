@@ -7,10 +7,13 @@ package model;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
@@ -39,6 +42,20 @@ public class Imagem {
         altura = bi.getHeight();
         largura = bi.getWidth();
     }
+
+    @Override
+    public Object clone(){
+        return new Imagem(deepCopyBuffered(buffered));
+    }
+    
+    private BufferedImage deepCopyBuffered(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+    }
+
+    
 
     public BufferedImage getBuffered() {
         return buffered;
@@ -182,7 +199,7 @@ public class Imagem {
         return new Imagem(saida);
     }
     
-    public Imagem aplicaMatrizMorfologia(int[][] kernel){
+    public Imagem aplicaMatrizMorfologia(int[][] kernel, Comparator<Integer> comp){
         BufferedImage saida = new BufferedImage(buffered.getWidth(), buffered.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         int xInicial = kernel.length / 2;
@@ -193,22 +210,25 @@ public class Imagem {
         percorrePixelsImagem(p -> {
             if (p.x < xInicial || p.x > xFinal) return;
             if (p.y < yInicial || p.y > yFinal) return;
-            int maior = 0;
+            int compared = 0;
             int soma;
             for (int x = 0; x < kernel.length; x++) {
                 for (int y = 0; y < kernel.length; y++) {
+                    if( x == 0 && y == 0) compared = getPixel(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ))
+                            .getEscalaCinza() + kernel[x][y];
                     if(kernel[x][y] < 0) continue;
                     soma = getPixel(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ))
                             .getEscalaCinza() + kernel[x][y];
-                    if(soma > maior) maior = soma;
+                    if(comp.compare(soma, compared) > 0) compared = soma;
                 }
             }
-            if(maior > 255) maior = 255;
+            if(compared > 255) compared = 255;
+            if(compared < 0) compared = 0;
             for (int x = 0; x < kernel.length; x++) {
                 for (int y = 0; y < kernel.length; y++) {
                     if(kernel[x][y] < 0) continue;
                     saida.setRGB(p.x + ( x - kernel.length / 2 ), p.y + ( y - kernel.length / 2 ), 
-                            new Color(maior, maior, maior).getRGB());
+                            new Color(compared, compared, compared).getRGB());
                 }
             }
         });

@@ -13,9 +13,9 @@ import model.Imagem;
  *
  * @author ivoaf
  */
-public class DilatacaoTransformer extends Transformer{
+public class ErosaoTransformer extends Transformer{
 
-    public DilatacaoTransformer(Imagem i) {
+    public ErosaoTransformer(Imagem i) {
         super(i);
     }
     
@@ -26,7 +26,7 @@ public class DilatacaoTransformer extends Transformer{
             new int[][]{
             {-1,  10, -1},
             {10, 10, 10},
-            {-1,  10, -1}}, (x, y) -> x - y);
+            {-1,  10, -1}}, (x, y) -> y - x);
         
         return img;
         

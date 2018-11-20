@@ -14,8 +14,10 @@ import transformers.BordaSobelTransformer;
 import transformers.BrilhoContrasteTransformer;
 import transformers.CropValoresTransformer;
 import transformers.DilatacaoTransformer;
+import transformers.ErosaoTransformer;
 import transformers.EscalaCinzaTransformer;
 import transformers.EspelhaImagemTransformer;
+import transformers.EsqueletoHoltTransformer;
 import transformers.FiltraCanaisTransformer;
 import transformers.GaussianoTransformer;
 import transformers.InverteCoresTransformer;
@@ -118,7 +120,7 @@ public class Tela extends javax.swing.JFrame {
         });
 
         comboEfeito.setMaximumRowCount(15);
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRC - Altera o brilho e contraste", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ECZ - Escala de cinza", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRC - Altera o brilho e contraste", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ERO - Erosão na imagem", "ECZ - Escala de cinza", "EHO - Esqueletização Holt", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -400,10 +402,14 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(BordaSobelTransformer.class);
             case "DIL":
                 return imgEntrada.getTransformer(DilatacaoTransformer.class);
+            case "ERO":
+                return imgEntrada.getTransformer(ErosaoTransformer.class);
             case "MID":
                 return imgEntrada.getTransformer(MedianaTransformer.class);
             case "GAU":
                 return imgEntrada.getTransformer(GaussianoTransformer.class);
+            case "EHO":
+                return imgEntrada.getTransformer(EsqueletoHoltTransformer.class);
             default:
                 return null;
         }

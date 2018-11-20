@@ -50,4 +50,16 @@ public class Pixel {
                     Math.abs(255 - cor.getBlue())
                 ).getRGB();
     }
+    
+    public boolean isHigher(){
+        return getEscalaCinza() == 255;
+    }
+    
+    public boolean isLower(){
+        return getEscalaCinza() == 0;
+    }
+    
+    public int toZeroUm(){
+        return getEscalaCinza() / 255;
+    }
 }
