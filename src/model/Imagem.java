@@ -291,7 +291,16 @@ public class Imagem {
     }
     
     public Pixel getPixel(int x, int y){
-        return new Pixel(buffered.getRGB(x, y), x, y);
+        if(x < 0) x = 0;
+        if(y < 0) y = 0;
+        if(x >= buffered.getWidth()) x = buffered.getWidth() - 1;
+        if(y >= buffered.getHeight()) y = buffered.getHeight() - 1;
+        try{
+            return new Pixel(buffered.getRGB(x, y), x, y);
+        } catch (Exception e){
+            System.out.println(x+" "+y);
+            return  null;
+        }
     }
     
     public boolean temTop(Coordenadas coord){
