@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Imagem;
 import transformers.BinarizaImagemTransformer;
+import transformers.BinarizaRGBTransformer;
 import transformers.BordaSobelTransformer;
 import transformers.BrilhoContrasteTransformer;
 import transformers.CropValoresTransformer;
@@ -23,6 +24,7 @@ import transformers.GaussianoTransformer;
 import transformers.InverteCoresTransformer;
 import transformers.MediaTransformer;
 import transformers.MedianaTransformer;
+import transformers.PreenchimentoTransformer;
 import transformers.ReescalaImagemTransformer;
 import transformers.RotacionaImagemTransformer;
 import transformers.TransladaImagemTransformer;
@@ -83,6 +85,8 @@ public class Tela extends javax.swing.JFrame {
         labelValor4 = new javax.swing.JLabel();
         campoValor3 = new javax.swing.JSpinner();
         campoValor4 = new javax.swing.JSpinner();
+        labelPixelsPintados = new javax.swing.JLabel();
+        campoPixelsPintados = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnCarregarImagem = new javax.swing.JMenuItem();
@@ -120,7 +124,7 @@ public class Tela extends javax.swing.JFrame {
         });
 
         comboEfeito.setMaximumRowCount(15);
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRC - Altera o brilho e contraste", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ERO - Erosão na imagem", "ECZ - Escala de cinza", "EHO - Esqueletização Holt", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRG - Binariza os canais RGB da imagem", "BRC - Altera o brilho e contraste", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ERO - Erosão na imagem", "ECZ - Escala de cinza", "EHO - Esqueletização Holt", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "PRE - Preenchimento(Flood fill)", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -225,6 +229,10 @@ public class Tela extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        labelPixelsPintados.setText("Pixels pintados:");
+
+        campoPixelsPintados.setEnabled(false);
+
         jMenu1.setText(" Arquivo");
 
         btnCarregarImagem.setText("Carregar imagem");
@@ -286,14 +294,16 @@ public class Tela extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelImgSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
+                            .addComponent(jLabel4)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(labelPixelsPintados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoPixelsPintados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(verImgInfo)))))
                 .addGap(6, 10, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(verImgInfo)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +337,10 @@ public class Tela extends javax.swing.JFrame {
                         .addGap(71, 71, 71)
                         .addComponent(btnTrocarImgs, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(verImgInfo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(verImgInfo)
+                    .addComponent(labelPixelsPintados)
+                    .addComponent(campoPixelsPintados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -360,6 +373,9 @@ public class Tela extends javax.swing.JFrame {
         Imagem resultado = transformerToUse.transform();
         if(resultado == null) return;
         setImagemTransformada(resultado);
+        if(transformerToUse.getClass().equals(PreenchimentoTransformer.class)){
+            campoPixelsPintados.setText(((PreenchimentoTransformer)transformerToUse).pixelsPintados.toString());
+        }
     }//GEN-LAST:event_btnAplicarEfeitoActionPerformed
 
     private void populaTransformerComInputValues(Transformer transformer){
@@ -410,6 +426,10 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(GaussianoTransformer.class);
             case "EHO":
                 return imgEntrada.getTransformer(EsqueletoHoltTransformer.class);
+            case "PRE":
+                return imgEntrada.getTransformer(PreenchimentoTransformer.class);
+            case "BRG":
+                return imgEntrada.getTransformer(BinarizaRGBTransformer.class);
             default:
                 return null;
         }
@@ -446,6 +466,7 @@ public class Tela extends javax.swing.JFrame {
         escondeCampoValor2();
         escondeCampoValor3();
         escondeCampoValor4();
+        escondeCampoPixelsPintados();
         
         Transformer selectedTransformer = getSelectedTransformer();
         if(selectedTransformer == null) return;
@@ -459,6 +480,9 @@ public class Tela extends javax.swing.JFrame {
             exibeCampoValor3(inputValuesNames[2]);
         if(inputValuesNames.length > 3)
             exibeCampoValor4(inputValuesNames[3]);
+        if(selectedTransformer.getClass().equals(PreenchimentoTransformer.class)){
+            exibeCampoPixelsPintados();
+        }
     }//GEN-LAST:event_comboEfeitoActionPerformed
 
     /**
@@ -557,12 +581,24 @@ public class Tela extends javax.swing.JFrame {
         campoValor4.setVisible(false);
     }
     
+    public final void escondeCampoPixelsPintados(){
+        labelPixelsPintados.setVisible(false);
+        campoPixelsPintados.setVisible(false);
+    }
+    
+    public void exibeCampoPixelsPintados(){
+        campoPixelsPintados.setText("");
+        labelPixelsPintados.setVisible(true);
+        campoPixelsPintados.setVisible(true);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAplicarCanais;
     private javax.swing.JButton btnAplicarEfeito;
     private javax.swing.JMenuItem btnCarregarImagem;
     private javax.swing.JMenuItem btnSobre;
     private javax.swing.JButton btnTrocarImgs;
+    private javax.swing.JTextField campoPixelsPintados;
     private javax.swing.JSpinner campoValor1;
     private javax.swing.JSpinner campoValor2;
     private javax.swing.JSpinner campoValor3;
@@ -584,6 +620,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel labelImgEntrada;
     private javax.swing.JLabel labelImgSaida;
+    private javax.swing.JLabel labelPixelsPintados;
     private javax.swing.JLabel labelValor1;
     private javax.swing.JLabel labelValor2;
     private javax.swing.JLabel labelValor3;

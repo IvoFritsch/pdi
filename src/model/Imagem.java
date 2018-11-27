@@ -286,7 +286,25 @@ public class Imagem {
         return new Imagem(saida);
     }
     
+    public Pixel getPixel(Coordenadas coord){
+        return getPixel(coord.x, coord.y);
+    }
+    
     public Pixel getPixel(int x, int y){
         return new Pixel(buffered.getRGB(x, y), x, y);
     }
+    
+    public boolean temTop(Coordenadas coord){
+        return coord.y > 0;
+    }
+    public boolean temBot(Coordenadas coord){
+        return coord.y < altura - 1;
+    }
+    public boolean temLeft(Coordenadas coord){
+        return coord.x > 0;
+    }
+    public boolean temRight(Coordenadas coord){
+        return coord.x < largura - 1;
+    }
+    
 }

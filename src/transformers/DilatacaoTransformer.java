@@ -5,7 +5,6 @@
  */
 package transformers;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import model.Imagem;
 
