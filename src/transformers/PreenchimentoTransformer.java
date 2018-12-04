@@ -37,11 +37,18 @@ public class PreenchimentoTransformer extends Transformer{
     public Imagem transform(int inferior, int superior){
         return new Imagem(this.go());
     }
+    
+    public Imagem transform(int x, int y, int cor) {
+        this.x = x;
+        this.y = y;
+        this.cor = cor;
+        return new Imagem(this.go());
+    }
 
     @Override
     public Imagem transform() {
-        x = getInputValue("X");
-        y = getInputValue("Y");
+        x = getInputValue("x");
+        y = getInputValue("y");
         cor = getInputValue("cor");
         return new Imagem(this.go());
     }
@@ -114,12 +121,16 @@ public class PreenchimentoTransformer extends Transformer{
             }
         }
     }
+
+    public Integer getPixelsPintados() {
+        return pixelsPintados;
+    }
     
     @Override
     public String[] getInputValuesNames() {
         return new String[]{
-            "X",
-            "Y",
+            "x",
+            "y",
             "cor"
         };
     }

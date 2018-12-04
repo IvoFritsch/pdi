@@ -13,6 +13,7 @@ import transformers.BinarizaImagemTransformer;
 import transformers.BinarizaRGBTransformer;
 import transformers.BordaSobelTransformer;
 import transformers.BrilhoContrasteTransformer;
+import transformers.ContaObjetosTransformer;
 import transformers.CropValoresTransformer;
 import transformers.DilatacaoTransformer;
 import transformers.ErosaoTransformer;
@@ -27,6 +28,7 @@ import transformers.MedianaTransformer;
 import transformers.PreenchimentoTransformer;
 import transformers.ReescalaImagemTransformer;
 import transformers.RotacionaImagemTransformer;
+import transformers.TrabalhoBotanicaTransformer;
 import transformers.TransladaImagemTransformer;
 import transformers.Transformer;
 
@@ -124,7 +126,7 @@ public class Tela extends javax.swing.JFrame {
         });
 
         comboEfeito.setMaximumRowCount(15);
-        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRG - Binariza os canais RGB da imagem", "BRC - Altera o brilho e contraste", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ERO - Erosão na imagem", "ECZ - Escala de cinza", "EHO - Esqueletização Holt", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "PRE - Preenchimento(Flood fill)", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem" }));
+        comboEfeito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARI - Amplia/Reduz imagem", "BIN - Binariza a imagem", "BRG - Binariza os canais RGB da imagem", "BRC - Altera o brilho e contraste", "COB - Conta objetos", "CVL - Cropa valores abaixo/acima de uma faixa", "DIL - Dilata a imagem", "ERO - Erosão na imagem", "ECZ - Escala de cinza", "EHO - Esqueletização Holt", "ESP - Espelha a imagem", "GAU - Aplica Filtro Gaussiano", "ICR - Inverte cores da imagem", "MED - Aplica média na imagem", "MID - Aplica mediana na imagem", "PRE - Preenchimento(Flood fill)", "ROT - Rotaciona imagem", "SOB - Detector de borda Sobel", "TRL - Translada/Move a imagem", "CMA - Contador de manchas - Desafio Botânica" }));
         comboEfeito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEfeitoActionPerformed(evt);
@@ -229,7 +231,7 @@ public class Tela extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        labelPixelsPintados.setText("Pixels pintados:");
+        labelPixelsPintados.setText("---");
 
         campoPixelsPintados.setEnabled(false);
 
@@ -376,6 +378,10 @@ public class Tela extends javax.swing.JFrame {
         if(transformerToUse.getClass().equals(PreenchimentoTransformer.class)){
             campoPixelsPintados.setText(((PreenchimentoTransformer)transformerToUse).pixelsPintados.toString());
         }
+        if(transformerToUse.getClass().equals(ContaObjetosTransformer.class)){
+            Integer qtdManchas = ((ContaObjetosTransformer)transformerToUse).qtdObjs;
+            campoPixelsPintados.setText(qtdManchas.toString());
+        }
     }//GEN-LAST:event_btnAplicarEfeitoActionPerformed
 
     private void populaTransformerComInputValues(Transformer transformer){
@@ -430,6 +436,10 @@ public class Tela extends javax.swing.JFrame {
                 return imgEntrada.getTransformer(PreenchimentoTransformer.class);
             case "BRG":
                 return imgEntrada.getTransformer(BinarizaRGBTransformer.class);
+            case "COB":
+                return imgEntrada.getTransformer(ContaObjetosTransformer.class);
+            case "CMA":
+                return imgEntrada.getTransformer(TrabalhoBotanicaTransformer.class);
             default:
                 return null;
         }
@@ -480,8 +490,13 @@ public class Tela extends javax.swing.JFrame {
             exibeCampoValor3(inputValuesNames[2]);
         if(inputValuesNames.length > 3)
             exibeCampoValor4(inputValuesNames[3]);
+        
+        
         if(selectedTransformer.getClass().equals(PreenchimentoTransformer.class)){
             exibeCampoPixelsPintados();
+        }
+        if(selectedTransformer.getClass().equals(ContaObjetosTransformer.class)){
+            exibeCampoContaObjetos();
         }
     }//GEN-LAST:event_comboEfeitoActionPerformed
 
@@ -588,6 +603,14 @@ public class Tela extends javax.swing.JFrame {
     
     public void exibeCampoPixelsPintados(){
         campoPixelsPintados.setText("");
+        labelPixelsPintados.setText("Pixels pintados:");
+        labelPixelsPintados.setVisible(true);
+        campoPixelsPintados.setVisible(true);
+    }
+    
+    public void exibeCampoContaObjetos(){
+        campoPixelsPintados.setText("");
+        labelPixelsPintados.setText("Qtd.objetos:");
         labelPixelsPintados.setVisible(true);
         campoPixelsPintados.setVisible(true);
     }

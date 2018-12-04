@@ -30,9 +30,9 @@ public class BinarizaRGBTransformer extends Transformer{
 
     @Override
     public Imagem transform() {
-        r = getInputValue("R");
-        g = getInputValue("G");
-        b = getInputValue("B");
+        r = getInputValue("r");
+        g = getInputValue("g");
+        b = getInputValue("b");
         return new Imagem(this.go());
     }
     
@@ -61,9 +61,9 @@ public class BinarizaRGBTransformer extends Transformer{
     @Override
     public String[] getInputValuesNames() {
         return new String[]{
-            "R",
-            "G",
-            "B",
+            "r",
+            "g",
+            "b",
         };
     }
 }

@@ -1,5 +1,6 @@
 ﻿---------------------------------------------------------
 DESAFIO FUNERÁRIA PESADELO ETERNO
+---------------------------------------------------------
 
 Missão 1:
 - Selecionar efeito ARI
@@ -39,8 +40,10 @@ Missão 6:
 - Selecionar efeito ROT
 - Colocar Angulo 30
 - Aplicar efeito
+
 ---------------------------------------------------------
 DESAFIO DO ESTÚDIO FOTOGRÁFICO
+---------------------------------------------------------
 
 Missão 1:
 - Selecionar efeito BRC
@@ -77,4 +80,38 @@ Missão 6:
 - Selecionar efeito BIN
 - Colocar Threshold com valor 60
 - Aplicar efeito
+
 ---------------------------------------------------------
+DESAFIO DE TRÂNSITO
+---------------------------------------------------------
+
+Missâo 1:
+- Aplicar efeito ECZ
+- Aplicar efeito ICR
+- Aplicar efeito BIN com threshold 150
+- Aplicar efeito EHO
+
+Missão 2:
+- Aplicar efeito ECZ
+- Aplicar efeito ICR
+- Aplicar efeito BIN com threshold 150
+- Aplicar efeito DIL
+
+Missão 3:
+- Aplicar efeito ECZ
+- Aplicar efeito ICR
+- Aplicar efeito BIN com threshold 150
+- Aplicar efeito DIL
+- Aplicar efeito ERO
+
+Missão 4:
+- Aplicar efeito ECZ
+- Aplicar efeito BIN com threshold 230
+- Aplicar efeito ERO (repetir 3 vezes)
+
+---------------------------------------------------------
+DESAFIO DE BOTÂNICA
+---------------------------------------------------------
+
+Missâo 1:
+- Aplicar efeito CMA

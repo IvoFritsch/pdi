@@ -30,11 +30,18 @@ public abstract class Transformer {
     
     public abstract Imagem transform();
     
-    public void setInputValue(String nome, int valor){
+    public Transformer setInputValue(String nome, int valor){
         inputValues.put(nome, valor);
+        return this;
+    }
+    
+    public Transformer set(String nome, int valor){
+        inputValues.put(nome, valor);
+        return this;
     }
     
     public int getInputValue(String nome){
+        if(!inputValues.containsKey(nome)) return 0;
         return inputValues.get(nome);
     }
     
